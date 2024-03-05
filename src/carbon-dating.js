@@ -17,24 +17,14 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // let calcLn,caclAge;
-  // let probe = Number(sampleActivity);
-  // if(sampleActivity >= MODERN_ACTIVITY) return false;
-  // if(sampleActivity === null) return false;
-  // if(sampleActivity === undefined) return false;
-  // if(typeof(probe) == 'number'){
-  //   calcLn = Math.log(MODERN_ACTIVITY/probe) / Math.log(2.718282);
-  //  console.log(calcLn);
-  // caclAge = calcLn / 0.000122;
-  // caclAge = Math.ceil(caclAge);
-  // }
-  // else return false;
-  // if(caclAge > 55000 || caclAge < 0){
-  //   return false;
-  // }
-  // else return caclAge;
+function dateSample(sampleActivity) {
+    const activity = parseFloat(sampleActivity);
+    if (typeof sampleActivity !== 'string' || isNaN(activity) || activity <= 0 || activity > MODERN_ACTIVITY) {
+      return false;
+    }
+    const decayConstant = Math.LN2 / HALF_LIFE_PERIOD;
+    const age = Math.log(MODERN_ACTIVITY / activity) / decayConstant;
+    return Math.ceil(age);
 }
 
 module.exports = {
